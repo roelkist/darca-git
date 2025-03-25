@@ -1,9 +1,9 @@
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 import pytest
 from darca_executor import DarcaExecError
 
-from darca_git.git import Git, GitException
+from darca_git.git import GitException
 
 
 @patch("darca_git.git.DarcaExecutor")
@@ -112,7 +112,8 @@ def test_git_exception_structure():
 
 @patch("darca_git.git.DarcaExecutor")
 def test_run_raises_git_exception(mock_executor, git):
-    # Covers lines 28–30: _run() catching DarcaExecError and raising GitException
+    # Covers lines 28–30: _run() catching DarcaExecError and
+    # raising GitException
     mock = mock_executor()
     mock.run.side_effect = DarcaExecError("mock failure")
     git.executor = mock

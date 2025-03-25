@@ -1,5 +1,4 @@
 from typing import List, Optional, Union
-from unittest.mock import MagicMock, patch
 
 from darca_exception.exception import DarcaException
 from darca_executor import DarcaExecError, DarcaExecutor
@@ -92,7 +91,8 @@ class Git:
         self, cwd: str, branch: str, create: bool = False
     ) -> None:
         logger.info(
-            f"{'Creating and checking out' if create else 'Checking out'} branch '{branch}' in '{cwd}'"
+            f"{'Creating and checking out' if create else 'Checking out'} "
+            f"branch '{branch}' in '{cwd}'"
         )
         args = ["-b", branch] if create else [branch]
         self._checkout(args, cwd, error_code="GIT_CHECKOUT_BRANCH_FAILED")
@@ -113,7 +113,8 @@ class Git:
         if isinstance(paths, str):
             paths = [paths]
         logger.info(
-            f"Restoring files {', '.join(paths)} from branch '{branch}' in '{cwd}'"
+            f"Restoring files {', '.join(paths)} from branch '{branch}'"
+            f" in '{cwd}'"
         )
         self._checkout(
             [branch, "--"] + paths,
