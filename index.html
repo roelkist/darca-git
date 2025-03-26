@@ -1,0 +1,238 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to darca-git’s documentation! &mdash; DARCA&#39;s storage abstraction for logical spaces. 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage Guide" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            DARCA's storage abstraction for logical spaces.
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Docs</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">DARCA's storage abstraction for logical spaces.</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Welcome to darca-git’s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="welcome-to-darca-git-s-documentation">
+<h1>Welcome to darca-git’s documentation!<a class="headerlink" href="#welcome-to-darca-git-s-documentation" title="Link to this heading"></a></h1>
+<p>Welcome to the developer and user documentation for <strong>darca-git</strong>, the Git CLI abstraction layer built for the Darca ecosystem.</p>
+<section id="project-overview">
+<h2>Project Overview<a class="headerlink" href="#project-overview" title="Link to this heading"></a></h2>
+<section id="darca-git">
+<h3>Darca Git<a class="headerlink" href="#darca-git" title="Link to this heading"></a></h3>
+<p><strong>Darca Git</strong> is a lightweight abstraction over Git CLI commands, built to integrate with <cite>darca-executor</cite> and the Darca ecosystem.</p>
+<ul class="simple">
+<li><p>🔗 No dependency on <cite>gitpython</cite></p></li>
+<li><p>🔐 Runs shell-safe commands via <cite>darca-executor</cite></p></li>
+<li><p>🧪 100% tested with <cite>pytest</cite></p></li>
+<li><p>🧰 Integrated with darca-space-git for space-aware Git</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
+<p>Clone and install the project using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>install
+</pre></div>
+</div>
+</section>
+<section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">darca_git.git</span><span class="w"> </span><span class="kn">import</span> <span class="n">Git</span>
+
+<span class="n">git</span> <span class="o">=</span> <span class="n">Git</span><span class="p">()</span>
+<span class="n">git</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="s2">&quot;/your/repo&quot;</span><span class="p">)</span>
+<span class="n">git</span><span class="o">.</span><span class="n">status</span><span class="p">(</span><span class="s2">&quot;/your/repo&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="testing">
+<h1>Testing<a class="headerlink" href="#testing" title="Link to this heading"></a></h1>
+<p>Run tests with full coverage:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span><span class="nb">test</span>
+</pre></div>
+</div>
+</section>
+<section id="documentation">
+<h1>Documentation<a class="headerlink" href="#documentation" title="Link to this heading"></a></h1>
+<p>Docs are built with Sphinx:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>docs
+</pre></div>
+</div>
+</section>
+<section id="pre-commit-hooks">
+<h1>Pre-commit Hooks<a class="headerlink" href="#pre-commit-hooks" title="Link to this heading"></a></h1>
+<p>Check formatting, linting and more with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>precommit
+</pre></div>
+</div>
+<p>Full quality check:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>check
+</pre></div>
+</div>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#basic-git-operations">Basic Git Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#dry-run-mode">Dry Run Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#running-tests">Running Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#darca_git.git.Git"><code class="docutils literal notranslate"><span class="pre">Git</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#darca_git.git.GitException"><code class="docutils literal notranslate"><span class="pre">GitException</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="community-contribution">
+<h2>Community &amp; Contribution<a class="headerlink" href="#community-contribution" title="Link to this heading"></a></h2>
+<section id="contributing-guidelines">
+<h3>Contributing Guidelines<a class="headerlink" href="#contributing-guidelines" title="Link to this heading"></a></h3>
+<p>We welcome contributions to <strong>darca-git</strong> — from bug fixes to features and docs!</p>
+</section>
+</section>
+</section>
+<section id="workflow">
+<h1>Workflow<a class="headerlink" href="#workflow" title="Link to this heading"></a></h1>
+<ol class="arabic">
+<li><p>Fork the repository</p></li>
+<li><p>Create a feature branch:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/your-feature
+</pre></div>
+</div>
+</li>
+<li><p>Install dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>install
+</pre></div>
+</div>
+</li>
+<li><p>Make your changes and run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>check
+</pre></div>
+</div>
+</li>
+<li><p>Push your branch and open a <strong>Pull Request</strong>.</p></li>
+</ol>
+</section>
+<section id="branch-naming">
+<h1>Branch Naming<a class="headerlink" href="#branch-naming" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><cite>feature/your-feature</cite> for features</p></li>
+<li><p><cite>fix/your-bug</cite> for bug fixes</p></li>
+<li><p><cite>docs/your-doc-change</cite> for docs</p></li>
+</ul>
+</section>
+<section id="pull-requests">
+<h1>Pull Requests<a class="headerlink" href="#pull-requests" title="Link to this heading"></a></h1>
+<p>All PRs must:</p>
+<ul class="simple">
+<li><p>Pass <cite>make check</cite> (format, tests, docs)</p></li>
+<li><p>Include meaningful tests if applicable</p></li>
+<li><p>Follow project style (PEP8 via <cite>black</cite> and <cite>isort</cite>)</p></li>
+</ul>
+</section>
+<section id="tips">
+<h1>Tips<a class="headerlink" href="#tips" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Use <cite>make</cite> targets to automate tasks</p></li>
+<li><p>Use <cite>make debug</cite> to inspect your local setup</p></li>
+<li><p>Ask questions, open discussions — we’re happy to help!</p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright (c) 2025 darca-git Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
