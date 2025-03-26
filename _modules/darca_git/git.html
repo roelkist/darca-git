@@ -82,6 +82,12 @@
 <div class="viewcode-block" id="GitException">
 <a class="viewcode-back" href="../../api.html#darca_git.git.GitException">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">GitException</span><span class="p">(</span><span class="n">DarcaException</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception raised for any failure in Git operations.</span>
+<span class="sd">    Provides error_code, metadata, and optional cause exception</span>
+<span class="sd">    for traceability.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cause</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span>
@@ -95,10 +101,31 @@
 <div class="viewcode-block" id="Git">
 <a class="viewcode-back" href="../../api.html#darca_git.git.Git">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Git</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Core Git interface that delegates Git CLI calls through the secure</span>
+<span class="sd">    DarcaExecutor.</span>
+<span class="sd">    This class provides Git operations without depending on external</span>
+<span class="sd">    Git libraries.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">executor</span> <span class="o">=</span> <span class="n">DarcaExecutor</span><span class="p">(</span><span class="n">use_shell</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">cwd</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">error_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Internal helper to run a Git command via the executor.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            args: Git CLI arguments (excluding &#39;git&#39; itself)</span>
+<span class="sd">            cwd: Working directory to run the command in</span>
+<span class="sd">            error_code: Error code for structured exception</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            stdout from the Git command</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            GitException on failure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;Running git command: git </span><span class="si">{</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="si">}</span><span class="s2"> in &#39;</span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
@@ -117,11 +144,25 @@
             <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_checkout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">cwd</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">error_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Internal helper for all Git checkout operations.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            args: Git checkout arguments</span>
+<span class="sd">            cwd: Repo path</span>
+<span class="sd">            error_code: Associated error code for exceptions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_run</span><span class="p">([</span><span class="s2">&quot;checkout&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">args</span><span class="p">,</span> <span class="n">cwd</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="n">error_code</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Git.init">
 <a class="viewcode-back" href="../../api.html#darca_git.git.Git.init">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cwd</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a Git repository in the given directory.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cwd: Directory path to initialize repo in</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initializing git repository in &#39;</span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_run</span><span class="p">([</span><span class="s2">&quot;init&quot;</span><span class="p">],</span> <span class="n">cwd</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="s2">&quot;GIT_INIT_FAILED&quot;</span><span class="p">)</span></div>
 
@@ -129,6 +170,13 @@
 <div class="viewcode-block" id="Git.clone">
 <a class="viewcode-back" href="../../api.html#darca_git.git.Git.clone">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repo_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cwd</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clone a Git repository into the given directory.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            repo_url: The Git repository URL</span>
+<span class="sd">            cwd: Destination path</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cloning repository &#39;</span><span class="si">{</span><span class="n">repo_url</span><span class="si">}</span><span class="s2">&#39; into &#39;</span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_run</span><span class="p">([</span><span class="s2">&quot;clone&quot;</span><span class="p">,</span> <span class="n">repo_url</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">],</span> <span class="n">cwd</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="s2">&quot;GIT_CLONE_FAILED&quot;</span><span class="p">)</span></div>
 
@@ -136,6 +184,16 @@
 <div class="viewcode-block" id="Git.status">
 <a class="viewcode-back" href="../../api.html#darca_git.git.Git.status">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cwd</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">porcelain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get repository status (optionally in porcelain format).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cwd: Path to the repository</span>
+<span class="sd">            porcelain: Whether to use --porcelain (machine-readable)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Git status output as string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">,</span> <span class="s2">&quot;--porcelain&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">porcelain</span> <span class="k">else</span> <span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Getting git status (porcelain=</span><span class="si">{</span><span class="n">porcelain</span><span class="si">}</span><span class="s2">) in &#39;</span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">cwd</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="s2">&quot;GIT_STATUS_FAILED&quot;</span><span class="p">)</span></div>
@@ -144,6 +202,13 @@
 <div class="viewcode-block" id="Git.add">
 <a class="viewcode-back" href="../../api.html#darca_git.git.Git.add">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cwd</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stage a file or path for commit.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path: Path to add (relative or absolute)</span>
+<span class="sd">            cwd: Path to the repository</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding file &#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&#39; in &#39;</span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_run</span><span class="p">([</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">],</span> <span class="n">cwd</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="s2">&quot;GIT_ADD_FAILED&quot;</span><span class="p">)</span></div>
 
@@ -151,6 +216,13 @@
 <div class="viewcode-block" id="Git.commit">
 <a class="viewcode-back" href="../../api.html#darca_git.git.Git.commit">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">commit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cwd</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Commit staged changes with a message.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            message: Commit message</span>
+<span class="sd">            cwd: Path to the repository</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Committing changes in &#39;</span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s2">&#39; with message: </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_run</span><span class="p">(</span>
             <span class="p">[</span><span class="s2">&quot;commit&quot;</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">],</span> <span class="n">cwd</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="s2">&quot;GIT_COMMIT_FAILED&quot;</span>
@@ -160,6 +232,12 @@
 <div class="viewcode-block" id="Git.pull">
 <a class="viewcode-back" href="../../api.html#darca_git.git.Git.pull">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">pull</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cwd</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pull the latest changes from the current branch&#39;s remote.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cwd: Path to the repository</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pulling latest changes in &#39;</span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_run</span><span class="p">([</span><span class="s2">&quot;pull&quot;</span><span class="p">],</span> <span class="n">cwd</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="s2">&quot;GIT_PULL_FAILED&quot;</span><span class="p">)</span></div>
 
@@ -167,6 +245,13 @@
 <div class="viewcode-block" id="Git.push">
 <a class="viewcode-back" href="../../api.html#darca_git.git.Git.push">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cwd</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">remote_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Push local changes to the remote repository.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cwd: Path to the repository</span>
+<span class="sd">            remote_url: Optional override for the &#39;origin&#39; remote URL</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pushing changes from &#39;</span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">remote_url</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting remote &#39;origin&#39; to &#39;</span><span class="si">{</span><span class="n">remote_url</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
@@ -190,6 +275,14 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">checkout_branch</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">cwd</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">branch</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">create</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Switch to a branch (optionally creating it first).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cwd: Path to the repository</span>
+<span class="sd">            branch: Branch name</span>
+<span class="sd">            create: Whether to create the branch before switching</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Creating and checking out&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;Checking out&#39;</span><span class="si">}</span><span class="s2"> &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;branch &#39;</span><span class="si">{</span><span class="n">branch</span><span class="si">}</span><span class="s2">&#39; in &#39;</span><span class="si">{</span><span class="n">cwd</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
@@ -201,6 +294,13 @@
 <div class="viewcode-block" id="Git.checkout_path">
 <a class="viewcode-back" href="../../api.html#darca_git.git.Git.checkout_path">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">checkout_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cwd</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">paths</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Revert uncommitted changes in one or more paths.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cwd: Path to the repository</span>
+<span class="sd">            paths: Single path or list of paths to restore</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">paths</span><span class="p">]</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
@@ -216,6 +316,14 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">checkout_path_from_branch</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">cwd</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">branch</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">paths</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Restore file(s) from a specific branch without switching branches.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cwd: Path to the repository</span>
+<span class="sd">            branch: Source branch to checkout from</span>
+<span class="sd">            paths: Path(s) to restore from the branch</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">paths</span><span class="p">]</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>

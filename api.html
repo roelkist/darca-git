@@ -93,55 +93,121 @@
 <dt class="sig sig-object py" id="darca_git.git.Git">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">darca_git.git.</span></span><span class="sig-name descname"><span class="pre">Git</span></span><a class="reference internal" href="_modules/darca_git/git.html#Git"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#darca_git.git.Git" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Core Git interface that delegates Git CLI calls through the secure
+DarcaExecutor.
+This class provides Git operations without depending on external
+Git libraries.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="darca_git.git.Git.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cwd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/darca_git/git.html#Git.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#darca_git.git.Git.add" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Stage a file or path for commit.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>path: Path to add (relative or absolute)
+cwd: Path to the repository</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="darca_git.git.Git.checkout_branch">
 <span class="sig-name descname"><span class="pre">checkout_branch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cwd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">branch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/darca_git/git.html#Git.checkout_branch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#darca_git.git.Git.checkout_branch" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Switch to a branch (optionally creating it first).</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>cwd: Path to the repository
+branch: Branch name
+create: Whether to create the branch before switching</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="darca_git.git.Git.checkout_path">
 <span class="sig-name descname"><span class="pre">checkout_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cwd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/darca_git/git.html#Git.checkout_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#darca_git.git.Git.checkout_path" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Revert uncommitted changes in one or more paths.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>cwd: Path to the repository
+paths: Single path or list of paths to restore</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="darca_git.git.Git.checkout_path_from_branch">
 <span class="sig-name descname"><span class="pre">checkout_path_from_branch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cwd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">branch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/darca_git/git.html#Git.checkout_path_from_branch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#darca_git.git.Git.checkout_path_from_branch" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Restore file(s) from a specific branch without switching branches.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>cwd: Path to the repository
+branch: Source branch to checkout from
+paths: Path(s) to restore from the branch</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="darca_git.git.Git.clone">
 <span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repo_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cwd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/darca_git/git.html#Git.clone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#darca_git.git.Git.clone" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Clone a Git repository into the given directory.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>repo_url: The Git repository URL
+cwd: Destination path</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="darca_git.git.Git.commit">
 <span class="sig-name descname"><span class="pre">commit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cwd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/darca_git/git.html#Git.commit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#darca_git.git.Git.commit" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Commit staged changes with a message.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>message: Commit message
+cwd: Path to the repository</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="darca_git.git.Git.init">
 <span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cwd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/darca_git/git.html#Git.init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#darca_git.git.Git.init" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Initialize a Git repository in the given directory.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>cwd: Directory path to initialize repo in</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="darca_git.git.Git.pull">
 <span class="sig-name descname"><span class="pre">pull</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cwd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/darca_git/git.html#Git.pull"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#darca_git.git.Git.pull" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Pull the latest changes from the current branch’s remote.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>cwd: Path to the repository</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="darca_git.git.Git.push">
 <span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cwd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remote_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/darca_git/git.html#Git.push"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#darca_git.git.Git.push" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Push local changes to the remote repository.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>cwd: Path to the repository
+remote_url: Optional override for the ‘origin’ remote URL</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="darca_git.git.Git.status">
 <span class="sig-name descname"><span class="pre">status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cwd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">porcelain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/darca_git/git.html#Git.status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#darca_git.git.Git.status" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Get repository status (optionally in porcelain format).</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>cwd: Path to the repository
+porcelain: Whether to use –porcelain (machine-readable)</p>
+</dd>
+<dt>Returns:</dt><dd><p>Git status output as string</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -149,6 +215,9 @@
 <dt class="sig sig-object py" id="darca_git.git.GitException">
 <em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">darca_git.git.</span></span><span class="sig-name descname"><span class="pre">GitException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cause</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/darca_git/git.html#GitException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#darca_git.git.GitException" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">DarcaException</span></code></p>
+<p>Exception raised for any failure in Git operations.
+Provides error_code, metadata, and optional cause exception
+for traceability.</p>
 </dd></dl>
 
 </section>
